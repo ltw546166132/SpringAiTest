@@ -73,6 +73,12 @@
         <dependency>
             <groupId>org.dromara</groupId>
             <artifactId>ruoyi-job</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>grpc-api</artifactId>
+                    <groupId>io.grpc</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- 代码生成-->

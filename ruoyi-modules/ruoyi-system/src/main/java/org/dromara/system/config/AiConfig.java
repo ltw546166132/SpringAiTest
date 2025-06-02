@@ -7,6 +7,7 @@ import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.MessageWindowChatMemory;
 import org.springframework.ai.chat.memory.repository.jdbc.JdbcChatMemoryRepository;
 import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +18,12 @@ public class AiConfig {
     private ChatModel openAiChatModel;
 
     @Resource
+    private EmbeddingModel openAiEmbeddingModel;
+
+    @Resource
     private JdbcChatMemoryRepository chatMemoryRepository;
+
+
 
     @Bean
     public ChatMemory mySqlChatMemory() {
@@ -28,7 +34,7 @@ public class AiConfig {
     }
 
     @Bean
-    public ChatClient openAiChatClient(OpenAiChatModel openAiChatModel) {
+    public ChatClient openAiChatClient(ChatModel openAiChatModel) {
         return ChatClient.builder(openAiChatModel).defaultAdvisors(MessageChatMemoryAdvisor.builder(mySqlChatMemory()).build()).build();
     }
 

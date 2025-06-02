@@ -278,13 +278,28 @@ llm:
     openai: sk-UHhpMSzit9loPFSe92A8Cb3106A149D7Af1a4a1f7cFe9907
 spring:
   ai:
+    vectorstore:
+      milvus:
+        client:
+          host: "192.168.77.233"
+          port: 19530
+        database-name: "spring_ai"
+        collection-name: "vector_store"
+        embedding-dimension: 1024
+        index-type: ivf_flat
+        metric-type: cosine
+        auto-id: true
+        initialize-schema: true
     openai:
-      api-key: ${llm.apiKey.openai}
       base-url: ${llm.url.openai}
+      api-key: ${llm.apiKey.openai}
       chat:
         options:
           model: gpt-4o-mini
           temperature: 0.7
+      embedding:
+        options:
+          model: text-embedding-3-large
     chat:
       memory:
         repository:
