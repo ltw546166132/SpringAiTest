@@ -285,7 +285,7 @@ spring:
           port: 19530
         database-name: "spring_ai"
         collection-name: "vector_store"
-        embedding-dimension: 1024
+        embedding-dimension: 3072
         index-type: ivf_flat
         metric-type: cosine
         auto-id: true
