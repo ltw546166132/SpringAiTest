@@ -2,8 +2,10 @@ package org.dromara.test;
 
 import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.URLUtil;
 import io.milvus.client.MilvusServiceClient;
 import jakarta.annotation.Resource;
+import org.dromara.common.core.utils.file.MimeTypeUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
@@ -19,6 +21,9 @@ import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.ai.vectorstore.filter.FilterExpressionBuilder;
 import org.springframework.ai.vectorstore.milvus.MilvusVectorStore;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.MimeType;
+
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -37,7 +42,7 @@ public class SpringAiTest {
     @Test
     public void test() {
         FilterExpressionBuilder b = new FilterExpressionBuilder();
-        ChatClient.CallResponseSpec youAreAHelpfulAssistant = openAiChatClient.prompt().user("脑洞乌托邦最新一期节目名称是什么")
+        ChatClient.CallResponseSpec youAreAHelpfulAssistant = openAiChatClient.prompt().user(x -> x.media(MimeType.valueOf(MimeTypeUtils.IMAGE_JPEG), URLUtil.url("https://www.baidu.com"))).user("脑洞乌托邦最新一期节目名称是什么")
 //            .advisors(QuestionAnswerAdvisor.builder(milvusVectorStore).searchRequest(SearchRequest.builder().similarityThreshold(0.8d).topK(6).build()).build())
             .advisors(QuestionAnswerAdvisor.builder(milvusVectorStore).searchRequest(SearchRequest.builder().filterExpression(b.eq("document_id", 123).build()).build()).build())
             .advisors(x -> x.param(ChatMemory.CONVERSATION_ID, 77)).call();
@@ -71,7 +76,7 @@ public class SpringAiTest {
         FilterExpressionBuilder search = new FilterExpressionBuilder();
         milvusVectorStore.delete("");
         Optional<MilvusServiceClient> nativeClient = milvusVectorStore.getNativeClient();
-        
+
     }
 
 

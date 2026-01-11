@@ -275,7 +275,7 @@ llm:
   url:
     openai: https://api.vveai.com
   apiKey:
-    openai: sk-UHhpMSzit9loPFSe92A8Cb3106A149D7Af1a4a1f7cFe9907
+    openai: sk-CFZVOShnmZxGeyhBA7F485C58241437fBf10A46fD188A0Bd
 spring:
   ai:
     vectorstore:
@@ -296,7 +296,7 @@ spring:
       chat:
         options:
           model: gpt-4o-mini
-          temperature: 0.7
+          temperature: 0.2
       embedding:
         options:
           model: text-embedding-3-large

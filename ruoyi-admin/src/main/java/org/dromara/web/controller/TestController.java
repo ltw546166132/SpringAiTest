@@ -2,8 +2,10 @@ package org.dromara.web.controller;
 
 import cn.dev33.satoken.annotation.SaIgnore;
 import cn.hutool.core.thread.ThreadUtil;
+import cn.hutool.extra.servlet.ServletUtil;
 import jakarta.annotation.Resource;
 import org.dromara.common.core.domain.R;
+import org.dromara.common.core.utils.ServletUtils;
 import org.dromara.common.redis.utils.RedisUtils;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +33,7 @@ public class TestController {
 
     @GetMapping(value = "/testRedis")
     public R<Integer> testRedis(){
+        ServletUtils.getHeaders(ServletUtils.getRequest());
 //        Integer test = RedisUtils.getCacheObject("test");
         return R.ok(321);
     }
