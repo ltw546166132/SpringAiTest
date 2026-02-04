@@ -295,7 +295,7 @@ spring:
       api-key: ${llm.apiKey.openai}
       chat:
         options:
-          model: gpt-4o-mini
+          model: gemini-3-flash-preview
           temperature: 0.2
       embedding:
         options:
