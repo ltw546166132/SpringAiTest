@@ -3,6 +3,9 @@ package org.dromara.web.controller;
 import cn.dev33.satoken.annotation.SaIgnore;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.extra.servlet.ServletUtil;
+import com.alibaba.cloud.ai.graph.CompiledGraph;
+import com.alibaba.cloud.ai.graph.NodeOutput;
+import com.alibaba.cloud.ai.graph.OverAllState;
 import jakarta.annotation.Resource;
 import org.dromara.common.core.domain.R;
 import org.dromara.common.core.utils.ServletUtils;
@@ -13,12 +16,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
+import java.util.Map;
+import java.util.Optional;
+
 @SaIgnore
 @RestController
 @RequestMapping(value = "/aiTest")
 public class TestController {
     @Resource
     private ChatClient openAiChatClient;
+    @Resource
+    private CompiledGraph simpleGraph;
 
     /**
      * 测试aiStream接口
@@ -36,5 +44,12 @@ public class TestController {
         ServletUtils.getHeaders(ServletUtils.getRequest());
 //        Integer test = RedisUtils.getCacheObject("test");
         return R.ok(321);
+    }
+
+    @GetMapping(value = "/testsSimpleGraph")
+    public R<Map<String, Object>> testsSimpleGraph(){
+        Optional<OverAllState> invoke = simpleGraph.invoke(Map.of("words", "sky"));
+        Map<String, Object> data = invoke.get().data();
+        return R.ok(data);
     }
 }
