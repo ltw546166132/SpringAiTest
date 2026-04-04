@@ -10,7 +10,9 @@ import com.alibaba.cloud.ai.graph.state.strategy.ReplaceStrategy;
 import org.dromara.system.node.SentenceConstructionNode;
 import org.dromara.system.node.TranslationNode;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class GraphConfig {
 
     @Bean("simpleGraph")
