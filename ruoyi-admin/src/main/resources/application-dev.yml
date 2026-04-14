@@ -305,3 +305,14 @@ spring:
         repository:
           jdbc:
             initialize-schema: never
+
+--- # Akka Cluster 配置
+akka:
+  cluster:
+    system-name: ImClusterSystem
+    port: 25520
+    hostname: 127.0.0.1
+    seed-nodes:
+      - "akka://ImClusterSystem@127.0.0.1:25520"
+    role: im-node
+    shard-count: 100
